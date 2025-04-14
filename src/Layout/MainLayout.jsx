@@ -26,9 +26,9 @@ const MainLayout = () => {
 		dispatch(logout())
 		navigate('/')
 	}
-		useEffect(()=>{
-			localStorage.setItem('accessToken' , JSON.stringify(token))
-		},[token])
+	useEffect(() => {
+		localStorage.setItem('accessToken', JSON.stringify(token))
+	}, [token])
 
 	return (
 		<div className='flex h-screen flex-col'>
@@ -40,7 +40,7 @@ const MainLayout = () => {
 							<MenuIcon />
 						</Button>
 					) : (
-						<div className='flex space-x-4'>
+						<div className='flex space-x-4 items-center'>
 							<NavLink
 								to='/dashboard'
 								className={({ isActive }) =>
@@ -65,42 +65,61 @@ const MainLayout = () => {
 							>
 								Comments
 							</NavLink>
+
+							<Button
+								variant='contained'
+								color='error'
+								onClick={handleLogout}
+								className='m-4 fixed bottom-0 left-0 right-0'
+							>
+								Logout
+							</Button>
 						</div>
 					)}
 				</Toolbar>
 			</AppBar>
 
-
 			{isMobile && (
-	<Drawer 
-		open={open}
-		onClose={handleToggleDrawer}
-		sx={{
-			width: 250,
-			flexShrink: 0,
-			'& .MuiDrawer-paper': {
-				width: 250,
-				boxSizing: 'border-box',
-				paddingTop: '64px', // Это добавит отступ сверху, чтобы элементы списка были ниже AppBar
-			},
-		}}
-		variant='temporary'
-		anchor='left'
-	>
-		<List className='space-y-4'>
-			<ListItem className='cursor-pointer' button onClick={() => navigate('/dashboard')}>
-				<ListItemText primary='Dashboard' />
-			</ListItem>
-			<ListItem className='cursor-pointer' button onClick={() => navigate('/users')}>
-				<ListItemText primary='Users' />
-			</ListItem>
-			<ListItem className='cursor-pointer' button onClick={() => navigate('/comments')}>
-				<ListItemText primary='Comments' />
-			</ListItem>
-		</List>
-	</Drawer>
+				<Drawer
+					open={open}
+					onClose={handleToggleDrawer}
+					sx={{
+						width: 250,
+						flexShrink: 0,
+						'& .MuiDrawer-paper': {
+							width: 250,
+							boxSizing: 'border-box',
+							paddingTop: '64px', // Это добавит отступ сверху, чтобы элементы списка были ниже AppBar
+						},
+					}}
+					variant='temporary'
+					anchor='left'
+				>
+					<List className='space-y-4'>
+						<ListItem
+							className='cursor-pointer'
+							button
+							onClick={() => navigate('/dashboard')}
+						>
+							<ListItemText primary='Dashboard' />
+						</ListItem>
+						<ListItem
+							className='cursor-pointer'
+							button
+							onClick={() => navigate('/users')}
+						>
+							<ListItemText primary='Users' />
+						</ListItem>
+						<ListItem
+							className='cursor-pointer'
+							button
+							onClick={() => navigate('/comments')}
+						>
+							<ListItemText primary='Comments' />
+						</ListItem>
+					</List>
+				</Drawer>
 			)}
-
 
 			<div className='flex-1 p-6'>
 				<Outlet />
